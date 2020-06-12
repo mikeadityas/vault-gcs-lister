@@ -9,7 +9,7 @@ kubernetes:
     deployment:
       template:
         pod:
-          replicas: 3
+          replicas: 5
           requests:
             cpu: 100m
             memory: 128Mi
