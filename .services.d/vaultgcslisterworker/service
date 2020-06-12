@@ -1,0 +1,55 @@
+#!/bin/bash
+
+set -e
+
+#-------------------------------------------------------------------------------
+# See https://github.com/cermati/devops-toolkit/blob/master/sv/docs/v2/configuration.md
+# for documentation.
+#-------------------------------------------------------------------------------
+
+# version_gt compares two semver versions
+function version_gt() {
+  test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1";
+}
+
+build() {
+  local SERVICE_NAME=$1
+  local ENVIRONMENT=$2
+  local BUILD_DIRECTORY=$3
+
+  # Check whether golang has been installed
+  if ! [ -x "$(command -v go)" ]; then
+    echo 'Error: go is not installed.' >&2
+    exit 1
+  fi
+
+  local ACTUAL_GO_VERSION_NUMBER=$(go version | cut -d ' ' -f 3)
+  ACTUAL_GO_VERSION_NUMBER=${ACTUAL_GO_VERSION_NUMBER:(2)}
+
+  EXPECTED_GO_VERISON_NUMBER=$(cat vaultgcslisterworker/go.mod | sed "3q;d" | cut -d ' ' -f 2)
+
+  if version_gt "${EXPECTED_GO_VERISON_NUMBER}" "${ACTUAL_GO_VERSION_NUMBER}"; then
+    echo "Installed Go version (v${ACTUAL_GO_VERSION_NUMBER}) doesn't meet the "\
+        "minimum version (v${EXPECTED_GO_VERISON_NUMBER})" >&2
+    exit 1
+  fi
+
+  pushd vaultgcslisterworker/cmd/vault-gcs-lister
+    GOPRIVATE=github.com/cermati && \
+    go build -mod=readonly \
+             -ldflags="-s -w" \
+             -o vaultgcslisterworker
+    mv vaultgcslisterworker ../../../${BUILD_DIRECTORY}
+  popd
+}
+
+run() {
+  local SERVICE_NAME=$1
+  local ENVIRONMENT=$2
+  local BUILD_DIRECTORY=$3
+
+  local ALL_ARGS=( "$@" )
+  local SERVICE_ARGS=("${ALL_ARGS[@]:3}")
+
+  ./vaultgcslisterworker "${SERVICE_ARGS[@]}"
+}

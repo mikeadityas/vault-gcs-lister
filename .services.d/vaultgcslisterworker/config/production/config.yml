@@ -1,0 +1,12 @@
+---
+# __ENVIRONMENT__ runtime=production
+#
+# See https://github.com/cermati/devops-toolkit/blob/master/sv/docs/v2/configuration.md
+# for documentation.
+
+configs:
+  static:
+    - path: config.d/vaultgcslisterworker/prod/config.yml
+      mount:
+        type: file
+        path: config.yml

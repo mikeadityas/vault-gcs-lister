@@ -1,0 +1,10 @@
+---
+# __ENVIRONMENT__ runtime=production
+#
+# See https://github.com/cermati/devops-toolkit/blob/master/sv/docs/v2/configuration.md
+# for documentation.
+
+kubernetes:
+  spec:
+    service:
+      enabled: false

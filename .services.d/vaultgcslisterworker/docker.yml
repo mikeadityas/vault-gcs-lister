@@ -1,0 +1,19 @@
+---
+# See https://github.com/cermati/devops-toolkit/blob/master/sv/docs/v2/configuration.md
+# for documentation.
+
+containerize:
+  docker:
+    builder_image:
+      name: golang-build:1.13.8
+      secrets:
+        - vault:
+            path: v1.1/cermati/infra/kv/cicd/prod/go/netrc
+            role: cermati-infra-cicd-prod
+            key: content
+            mount:
+              type: file
+              path: /home/appRunner/.netrc
+
+    runtime_image:
+      name: generic:ubuntu-18.04

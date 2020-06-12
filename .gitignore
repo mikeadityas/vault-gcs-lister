@@ -1,2 +1,16 @@
 .ignored/
 build/
+
+# PKICTL
+/cli/pki/
+/cli/pkictl
+
+# KonfigCTL
+/cli/konfig/
+/cli/konfigctl
+
+# SVCTL
+/.build
+/.svctl_docker_mount
+/cli/sv/
+/cli/svctl

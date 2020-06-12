@@ -1,0 +1,9 @@
+secrets_path: v1.1/cermati/infra/gcp-cermati/infrastructure-260106/key/vaultgcslister-vaultgcslisterworker-prod-admin-sa
+interval: 5m
+vault:
+  address: https://vault-test.cermati.com:9443
+  role_name: vault-admin
+tls:
+  ca: $PKICTL_CA_CERT_FILE
+  cert: $PKICTL_CERT_FILE
+  key: $PKICTL_KEY_FILE

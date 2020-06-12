@@ -74,7 +74,7 @@ func main() {
 }
 
 func getArgsConfig() *config.ArgsConfig {
-	cfg := config.DefaultConfig
+	cfg := config.LoadFromFile("config.yml")
 
 	flag.StringVar(&cfg.SecretsPath, "secrets-path", cfg.SecretsPath, "GCP secrets engine path")
 	flag.StringVar(&cfg.ProjectID, "project-id", cfg.ProjectID, "GCP project ID")

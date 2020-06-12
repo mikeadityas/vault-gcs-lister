@@ -1,0 +1,15 @@
+---
+# __ENVIRONMENT__ runtime=production
+#
+# See https://github.com/cermati/devops-toolkit/blob/master/sv/docs/v2/configuration.md
+# for documentation.
+
+kubernetes:
+  spec:
+    deployment:
+      template:
+        pod:
+          replicas: 3
+          requests:
+            cpu: 100m
+            memory: 128Mi

@@ -1,0 +1,9 @@
+secrets_path: v1.1/cermati/infra/gcp-cermati/infrastructure-260106/key/vaultgcslister-vaultgcslisterworker-prod-admin-sa
+interval: 1m
+vault:
+  address: https://127.0.0.1:8200
+  role_name: vault-admin
+tls:
+  ca: $PKICTL_CONTEXT_TLS_CACERT
+  cert: $PKICTL_CONTEXT_TLS_CERT
+  key: $PKICTL_CONTEXT_TLS_KEY

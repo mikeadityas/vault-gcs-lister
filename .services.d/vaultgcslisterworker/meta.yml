@@ -1,0 +1,38 @@
+---
+# See https://github.com/cermati/devops-toolkit/blob/master/sv/docs/v2/configuration.md
+# for documentation.
+
+version: v2
+
+config_extends: []
+
+organization: cermati
+team: infra
+product: vaultgcslister
+
+environments:
+  - development
+  - production
+
+git:
+  remote: git@github.com:mikeadityas/vault-gcs-lister.git
+
+  branches:
+    development: master
+    production: master
+
+kubernetes:
+  deployment: !env
+    - conditions:
+        runtime: production
+      value:
+        default_cluster: cluster01-infra-cermati-infra-vaultgcslister-prod
+
+monitoring:
+  dashboard:
+    alerts:
+      thresholds:
+        server_error: 'disabled'
+
+pki:
+  enabled: true

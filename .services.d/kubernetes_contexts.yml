@@ -1,0 +1,13 @@
+---
+# This file contains list of Kubernetes clusters that will host the service.
+# Consult the infra team as to what to put in this configuration file.
+#
+# See https://github.com/cermati/devops-toolkit/blob/master/sv/docs/v2/configuration.md
+# for documentation.
+
+kubernetes:
+  clusters:
+    cluster01-infra-cermati-infra-vaultgcslister-prod:
+      url: https://k8s-cluster01-infra.cermati.com
+      namespace: cermati-infra-vaultgcslister-prod
+      cloud_vendor: aws
